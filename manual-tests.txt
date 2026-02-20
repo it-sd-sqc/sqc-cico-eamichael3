@@ -62,3 +62,15 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 * Should display "Developer" for the user name.
 
 
+# Module 4: Constrain card numbers to 8 digits
+
+## Test steps
+1. Build and run CiCo.
+2. Enter 123456789 into the field.
+3. Clear the field, enter 1234567, and click Update.
+
+## Expected results
+* The field should only contain 12345678 after step 2.
+* The main panel should remain visible after step 3.
+
+
