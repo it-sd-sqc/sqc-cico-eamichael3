@@ -31,18 +31,33 @@ public class Main {
   // Timeouts. Note the units.
   private static final long TIMEOUT_PANEL_MS = 10 * 1000;
   private static final int TIMEOUT_STATEMENT_S = 5;
+  private static final int CARD_NUMBER_LENGTH = 8;
 
   // Internal classes ///////////////////////////////////////////////////////////
   // InputFilter manages user input to the card number field.
   private static class InputFilter extends DocumentFilter {
-    private static final int MAX_LENGTH = 8;
+    private static String createNextText(String current, int offset, int lengthToDelete, String stringToAdd) {
+      String add = stringToAdd == null ? "" : stringToAdd;
+      return current.substring(0, offset) + add + current.substring(offset + lengthToDelete);
+    }
+
+    private static boolean isValidCardInput(String text) {
+      return text != null && text.matches("\\d*") && text.length() <= CARD_NUMBER_LENGTH;
+    }
 
     @Override
     public void insertString(FilterBypass fb, int offset, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
       if (fb.getDocument() != null) {
+        String current = fb.getDocument().getText(0, fb.getDocument().getLength());
+        String next = createNextText(current, offset, 0, stringToAdd);
+        if (isValidCardInput(next)) {
         super.insertString(fb, offset, stringToAdd, attr);
+        }
+        else {
+          Toolkit.getDefaultToolkit().beep();
+        }
       }
       else {
         Toolkit.getDefaultToolkit().beep();
@@ -54,7 +69,14 @@ public class Main {
         throws BadLocationException
     {
       if (fb.getDocument() != null) {
+        String current = fb.getDocument().getText(0, fb.getDocument().getLength());
+        String next = createNextText(current, offset, lengthToDelete, stringToAdd);
+        if (isValidCardInput(next)) {
         super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
+        }
+        else {
+          Toolkit.getDefaultToolkit().beep();
+        }
       }
       else {
         Toolkit.getDefaultToolkit().beep();
@@ -121,6 +143,10 @@ public class Main {
   private static void processCard() {
     if (db == null) {
       showError(ERROR_NO_DB);
+      return;
+    }
+    if (fieldNumber.getText().length() != CARD_NUMBER_LENGTH) {
+      Toolkit.getDefaultToolkit().beep();
       return;
     }
 
