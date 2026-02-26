@@ -61,4 +61,14 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 ## Expected results
 * Should display "Developer" for the user name.
 
+# Module 5: Ticket 502 clean shutdown on window close
+
+## Test steps
+1. Build and run CiCo.
+2. Close the application window using the window close button.
+
+## Expected results
+* The application process should exit immediately after step 2.
+* The shell should show `Clean shutdown`.
+
 
