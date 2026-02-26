@@ -31,6 +31,7 @@ public class Main {
   // Timeouts. Note the units.
   private static final long TIMEOUT_PANEL_MS = 10 * 1000;
   private static final int TIMEOUT_STATEMENT_S = 5;
+  static final int FRAME_CLOSE_OPERATION = WindowConstants.EXIT_ON_CLOSE;
 
   // Internal classes ///////////////////////////////////////////////////////////
   // InputFilter manages user input to the card number field.
@@ -227,6 +228,7 @@ public class Main {
 
     // Create our GUI.
     JFrame frame = new JFrame();
+    frame.setDefaultCloseOperation(FRAME_CLOSE_OPERATION);
     frame.setMinimumSize(new Dimension(320, 240));
     frame.setPreferredSize(new Dimension(640, 480));
     frame.setMaximumSize(new Dimension(640, 480));
