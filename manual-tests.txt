@@ -71,4 +71,11 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 * The application process should exit immediately after step 2.
 * The shell should show `Clean shutdown`.
 
+# Module 6: Ticket 601 automatic submit
 
+## Test steps
+1. Build and run CiCo
+2. Type in 00000000 
+
+## Expected results
+* The application should automatically display the Username page after typing in the book card
